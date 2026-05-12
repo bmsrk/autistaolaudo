@@ -690,12 +690,13 @@
 
   /* ---- Save / Load from localStorage ---- */
   const SAVE_KEY = "autista-ficha-v1";
+  const AUTO_SAVE_DEBOUNCE_MS = 450;
 
   function scheduleAutoSave() {
     clearTimeout(autoSaveTimer);
     autoSaveTimer = setTimeout(() => {
       localStorage.setItem(SAVE_KEY, JSON.stringify(state));
-    }, 450);
+    }, AUTO_SAVE_DEBOUNCE_MS);
   }
 
   function saveState() {
