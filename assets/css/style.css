@@ -16,6 +16,8 @@
   --accent-purple: #a78bfa;
   --accent-yellow: #fbbf24;
   --border-color: #334155;
+  --accent-blue-soft: rgba(56, 189, 248, 0.6);
+  --surface-lift-shadow: 0 10px 30px rgba(15, 23, 42, 0.18);
   --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
   --radius: 12px;
   --radius-sm: 8px;
@@ -35,6 +37,8 @@
   --accent-purple: #7c3aed;
   --accent-yellow: #d97706;
   --border-color: #bae6fd;
+  --accent-blue-soft: rgba(2, 132, 199, 0.45);
+  --surface-lift-shadow: 0 10px 30px rgba(14, 116, 144, 0.14);
   --shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
 }
 
@@ -405,8 +409,8 @@ select.form-control {
 
 .attr-card:hover,
 .attr-card-active {
-  border-color: rgba(56, 189, 248, 0.6);
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.18);
+  border-color: var(--accent-blue-soft);
+  box-shadow: var(--surface-lift-shadow);
   transform: translateY(-2px);
 }
 

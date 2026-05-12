@@ -49,13 +49,21 @@
     return state.interesses.filter((interest) => String(interest || "").trim()).length;
   }
 
+  function pointWord(count, singular, plural) {
+    return count === 1 ? singular : plural;
+  }
+
   function clamp(value, min, max) {
     return Math.min(max, Math.max(min, value));
   }
 
   function normalizeAttributes(attrs) {
     const normalized = Object.fromEntries(
-      ATTRS.map((attr) => [attr.id, clamp(Number(attrs?.[attr.id]) || MIN_ATTR, MIN_ATTR, MAX_ATTR)])
+      ATTRS.map((attr) => {
+        const rawValue = Number(attrs?.[attr.id]);
+        const safeValue = Number.isFinite(rawValue) ? rawValue : MIN_ATTR;
+        return [attr.id, clamp(safeValue, MIN_ATTR, MAX_ATTR)];
+      })
     );
 
     let total = Object.values(normalized).reduce((sum, value) => sum + value, 0);
@@ -74,16 +82,17 @@
   }
 
   function normalizeState(saved) {
+    const interesses = Array.isArray(saved?.interesses)
+      ? saved.interesses.slice(0, MAX_INTERESTS).map((interest) => String(interest ?? ""))
+      : [""];
+
     return {
       nome: typeof saved?.nome === "string" ? saved.nome : "",
       idade: typeof saved?.idade === "string" ? saved.idade : "",
       suporte: ["1", "2", "3"].includes(saved?.suporte) ? saved.suporte : "",
       laudo: typeof saved?.laudo === "string" ? saved.laudo : "",
       atributos: normalizeAttributes(saved?.atributos),
-      interesses:
-        Array.isArray(saved?.interesses) && saved.interesses.length
-          ? saved.interesses.slice(0, MAX_INTERESTS).map((interest) => String(interest ?? ""))
-          : [""],
+      interesses: interesses.length ? interesses : [""],
       forcas: typeof saved?.forcas === "string" ? saved.forcas : "",
       fraquezas: typeof saved?.fraquezas === "string" ? saved.fraquezas : "",
       habilidades: typeof saved?.habilidades === "string" ? saved.habilidades : "",
@@ -193,7 +202,7 @@
     if (nameEl) nameEl.textContent = hasName ? state.nome.trim() : "Sem nome";
 
     if (pointsEl) {
-      pointsEl.textContent = `${rem} livre${rem === 1 ? "" : "s"}`;
+      pointsEl.textContent = `${rem} ${pointWord(rem, "livre", "livres")}`;
       pointsEl.dataset.state = rem === 0 ? "ready" : "editing";
     }
 
@@ -206,7 +215,7 @@
       if (!hasName) {
         statusText = "Defina o nome";
       } else if (rem > 0) {
-        statusText = `Distribua ${rem} ponto${rem === 1 ? "" : "s"}`;
+        statusText = `Distribua ${rem} ${pointWord(rem, "ponto", "pontos")}`;
       } else if (!hasSupport) {
         statusText = "Escolha o suporte";
       } else {
