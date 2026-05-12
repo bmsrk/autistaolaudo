@@ -938,8 +938,11 @@ tr:hover td {
   display: flex;
   gap: 0.75rem;
   flex-wrap: wrap;
-  margin-bottom: 1.5rem;
   justify-content: flex-end;
+}
+
+.ficha-actions-top {
+  margin-bottom: 1.5rem;
 }
 
 #ficha-form {
