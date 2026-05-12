@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Regras — AUTISTA: O LAUDO</title>
+  <meta name="description" content="Manual completo de regras do RPG AUTISTA: O LAUDO. Criação de personagem, atributos, testes, meltdown, interesses especiais e mais." />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <div id="scroll-progress" role="progressbar" aria-label="Progresso de leitura"></div>
+
+  <!-- ==================== NAVBAR ==================== -->
+  <nav class="navbar" role="navigation" aria-label="Navegação principal">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-brand" aria-label="Página inicial">⬡ AUTISTA: O LAUDO</a>
+
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="navbar-links" id="nav-links" role="list">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="regras.html">Regras</a></li>
+        <li><a href="ficha.html">Criar Ficha</a></li>
+      </ul>
+
+      <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Alternar tema">
+        ☀️ Claro
+      </button>
+    </div>
+  </nav>
+
+  <!-- ==================== PAGE HEADER ==================== -->
+  <header style="padding:3rem 0 2rem;text-align:center;background:var(--bg-secondary);border-bottom:1px solid var(--border-color)">
+    <div class="container">
+      <span class="badge badge-blue" style="margin-bottom:1rem">📖 Manual de Regras</span>
+      <h1><span class="gradient-text">Manual Completo</span></h1>
+      <p style="max-width:600px;margin:0.75rem auto 0">Tudo que você precisa saber para jogar AUTISTA: O LAUDO — do básico ao avançado.</p>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main class="section">
+    <div class="container">
+      <div class="rules-layout">
+
+        <!-- ---- SIDEBAR ---- -->
+        <aside class="rules-sidebar" aria-label="Navegação do manual">
+          <h3>Navegação</h3>
+          <ul class="sidebar-nav" role="list">
+            <li><a href="#introducao">Introdução</a></li>
+            <li><a href="#primeiros-passos">Primeiros Passos</a></li>
+            <li><a href="#criacao-personagem">Criação de Personagem</a></li>
+            <ul class="sidebar-nav sub-item">
+              <li><a href="#identidade">Identidade</a></li>
+              <li><a href="#atributos">Atributos</a></li>
+              <li><a href="#nivel-suporte">Nível de Suporte</a></li>
+              <li><a href="#interesses-especiais">Interesses Especiais</a></li>
+              <li><a href="#forcas-fraquezas">Forças &amp; Fraquezas</a></li>
+              <li><a href="#habilidades-especiais">Habilidades Especiais</a></li>
+            </ul>
+            <li><a href="#testes">Sistema de Testes</a></li>
+            <li><a href="#sobrecarga">Sobrecarga Sensorial</a></li>
+            <li><a href="#meltdown">Meltdown</a></li>
+            <li><a href="#shutdown">Shutdown</a></li>
+            <li><a href="#recuperacao">Recuperação</a></li>
+            <li><a href="#narrador">O Narrador</a></li>
+            <li><a href="#cenarios">Cenários</a></li>
+            <li><a href="#glossario">Glossário</a></li>
+          </ul>
+
+          <hr class="divider" />
+
+          <a href="ficha.html" class="btn btn-primary" style="width:100%;justify-content:center;font-size:0.9rem">✏️ Criar Ficha</a>
+        </aside>
+
+        <!-- ---- RULES CONTENT ---- -->
+        <article class="rules-content" id="rules-content" aria-label="Conteúdo do manual">
+
+          <!-- ======================== INTRODUÇÃO ======================== -->
+          <section id="introducao" aria-labelledby="h-introducao">
+            <h2 id="h-introducao">🌟 Introdução</h2>
+            <p>
+              <strong>AUTISTA: O LAUDO</strong> é um RPG de storytelling colaborativo criado por e para pessoas neurodivergentes.
+              Diferente de jogos tradicionais, aqui não existem "inimigos a vencer" ou "power levels" para maximizar —
+              o foco é a narrativa, a autoexpressão e a construção coletiva de histórias ricas e empoderadoras.
+            </p>
+            <p>
+              Cada jogador interpreta uma pessoa neurodivergente (autista, TDAH, dislexia, TEA, ou outras condições)
+              navegando um mundo que nem sempre foi construído para eles. A aventura está em descobrir estratégias,
+              construir redes de apoio, explorar interesses especiais e lidar com as sobrecargas do dia a dia —
+              transformando desafios em superpoderes.
+            </p>
+
+            <div class="callout callout-blue">
+              <strong>🧩 Filosofia do jogo:</strong> Nenhum tipo de mente é inferior. Nenhuma forma de processar o mundo
+              é errada. AUTISTA: O LAUDO celebra a neurodiversidade como riqueza, não como limitação.
+            </div>
+
+            <h3>Para quem é este jogo?</h3>
+            <ul>
+              <li>Pessoas neurodivergentes que querem se ver representadas em narrativas</li>
+              <li>Familiares e aliados que querem entender melhor a experiência neurodivergente</li>
+              <li>Terapeutas e educadores que usam jogos como ferramenta</li>
+              <li>Qualquer pessoa curiosa sobre outras formas de experienciar o mundo</li>
+            </ul>
+
+            <h3>Materiais necessários</h3>
+            <ul>
+              <li>2 a 5 jogadores (inclui o Narrador)</li>
+              <li>Dados de 6 faces (d6) — pelo menos 3 por jogador</li>
+              <li>Fichas de personagem (impressas ou digitais)</li>
+              <li>Canetas, post-its ou equivalente digital</li>
+              <li>Vontade de contar histórias juntos</li>
+            </ul>
+          </section>
+
+          <hr class="divider" />
+
+          <!-- ======================== PRIMEIROS PASSOS ======================== -->
+          <section id="primeiros-passos" aria-labelledby="h-primeiros">
+            <h2 id="h-primeiros">🚀 Primeiros Passos</h2>
+            <p>
+              Antes da primeira sessão, reserve 30 a 60 minutos para a <strong>Sessão Zero</strong> — 
+              um encontro dedicado a criar personagens, estabelecer linhas de segurança e definir o tom da campanha.
+            </p>
+
+            <h3>Sessão Zero</h3>
+            <ol>
+              <li><strong>Conversa sobre limites:</strong> Cada jogador define temas que não quer explorar (linhas) e temas que aceita explorar com cuidado (véus).</li>
+              <li><strong>Criação de personagens:</strong> Todos criam fichas juntos, podendo trocar ideias e criar conexões entre personagens.</li>
+              <li><strong>Definição de cenário:</strong> O Narrador apresenta a premissa da campanha ou aventura única.</li>
+              <li><strong>Combinados de jogo:</strong> Intervalo entre sessões, duração, uso de ferramenta X (carta de segurança, palavra de parada, etc.)</li>
+            </ol>
+
+            <div class="callout callout-green">
+              <strong>✅ Ferramenta X:</strong> Qualquer jogador pode invocar o "X" (dizendo "X" em voz alta ou escrevendo no chat)
+              para pausar ou pular uma cena sem precisar explicar por quê. O grupo respeita sem questionamentos.
+            </div>
+
+            <h3>Estrutura de uma Sessão</h3>
+            <ol>
+              <li><strong>Check-in (5 min):</strong> Como está cada pessoa? Algum ajuste de acessibilidade necessário?</li>
+              <li><strong>Recapitulação (5 min):</strong> Revisão breve dos eventos da sessão anterior.</li>
+              <li><strong>Jogo (60–90 min):</strong> A história acontece! Narração, rolagens e decisões colaborativas.</li>
+              <li><strong>Check-out (10 min):</strong> Debrief da sessão — o que foi bom, o que pode melhorar, destaques de interpretação.</li>
+            </ol>
+          </section>
+
+          <hr class="divider" />
+
+          <!-- ======================== CRIAÇÃO DE PERSONAGEM ======================== -->
+          <section id="criacao-personagem" aria-labelledby="h-criacao">
+            <h2 id="h-criacao">✏️ Criação de Personagem</h2>
+            <p>
+              Um personagem em AUTISTA: O LAUDO é definido pela sua identidade, seus atributos neurodivergentes,
+              seus interesses especiais e suas forças únicas. Não existe personagem "fraco" — apenas personagens diferentes.
+            </p>
+
+            <!-- Identidade -->
+            <h3 id="identidade">🪪 Identidade</h3>
+            <p>Preencha os campos básicos da ficha:</p>
+
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Campo</th>
+                    <th>Descrição</th>
+                    <th>Exemplo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><strong>Nome</strong></td><td>Nome completo ou como prefere ser chamado</td><td>Lua Ribeiro, Kael, "Computador"</td></tr>
+                  <tr><td><strong>Idade</strong></td><td>Idade em anos (ou equivalente)</td><td>17, 32, "não sei"</td></tr>
+                  <tr><td><strong>Nível de Suporte</strong></td><td>Baseado no DSM-5 (ver seção específica)</td><td>Nível 1, 2 ou 3</td></tr>
+                  <tr><td><strong>Laudo</strong></td><td>Status do diagnóstico formal (opcional, sem impacto mecânico)</td><td>Diagnosticado, Suspeita, Autoidentificado</td></tr>
+                  <tr><td><strong>História</strong></td><td>Parágrafo livre sobre o personagem</td><td>Livre</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Atributos -->
+            <h3 id="atributos">📊 Atributos</h3>
+            <p>
+              Cada personagem possui <strong>6 atributos</strong> que descrevem sua forma de processar e interagir com o mundo.
+              Você tem <strong>12 pontos</strong> para distribuir, com cada atributo começando em 1 e podendo chegar até 4.
+            </p>
+
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Atributo</th>
+                    <th>Descrição</th>
+                    <th>Usado quando…</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>🔭 Foco</strong></td>
+                    <td>Hiperfoco e atenção profunda</td>
+                    <td>Pesquisa intensa, análise detalhada, atividades repetitivas de interesse</td>
+                  </tr>
+                  <tr>
+                    <td><strong>💚 Empatia</strong></td>
+                    <td>Profundidade emocional e conexão</td>
+                    <td>Leitura emocional, cuidado com outros, decodificação social</td>
+                  </tr>
+                  <tr>
+                    <td><strong>💬 Comunicação</strong></td>
+                    <td>Expressão e compreensão (em qualquer modalidade)</td>
+                    <td>Diálogos, negociações, escrita, comunicação alternativa</td>
+                  </tr>
+                  <tr>
+                    <td><strong>🌡️ Regulação</strong></td>
+                    <td>Controle sensorial e emocional</td>
+                    <td>Ambientes caóticos, sobrecarga sensorial, gerenciar emoções intensas</td>
+                  </tr>
+                  <tr>
+                    <td><strong>🎨 Criatividade</strong></td>
+                    <td>Pensamento não-linear e inovação</td>
+                    <td>Improvisar, resolver problemas de formas inesperadas, criar</td>
+                  </tr>
+                  <tr>
+                    <td><strong>🔩 Persistência</strong></td>
+                    <td>Determinação e constância</td>
+                    <td>Projetos longos, insistir em frente a obstáculos, monitoramento</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="callout callout-yellow">
+              <strong>⚠️ Regra dos pontos:</strong> Nenhum atributo pode ter valor 0 na criação. O mínimo é 1 e o máximo é 4.
+              Total de pontos distribuídos deve ser exatamente 12.
+            </div>
+
+            <!-- Nível de Suporte -->
+            <h3 id="nivel-suporte">🤝 Nível de Suporte (DSM-5)</h3>
+            <p>
+              O nível de suporte é baseado na classificação real do DSM-5 para TEA. Ele <strong>não define poder</strong>
+              — define o estilo de desafios e apoios do personagem.
+            </p>
+
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Nível</th>
+                    <th>Descrição DSM-5</th>
+                    <th>Bônus Mecânico</th>
+                    <th>Desafio Adicional</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="badge badge-green">Nível 1</span></td>
+                    <td>Precisa de algum apoio</td>
+                    <td>+1 em Comunicação em situações familiares</td>
+                    <td>Situações novas custam +1 ponto de Sobrecarga</td>
+                  </tr>
+                  <tr>
+                    <td><span class="badge badge-yellow">Nível 2</span></td>
+                    <td>Precisa de apoio substancial</td>
+                    <td>+1 em Foco ao realizar interesses especiais</td>
+                    <td>Ambientes novos custam +1 Sobrecarga</td>
+                  </tr>
+                  <tr>
+                    <td><span class="badge badge-blue">Nível 3</span></td>
+                    <td>Precisa de apoio muito substancial</td>
+                    <td>+2 em qualquer atributo quando em ambiente seguro</td>
+                    <td>Interações sem preparação custam +2 Sobrecarga</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Interesses Especiais -->
+            <h3 id="interesses-especiais">⭐ Interesses Especiais</h3>
+            <p>
+              Todo personagem tem de 1 a 5 <strong>Interesses Especiais</strong> — assuntos, atividades ou temas
+              pelos quais o personagem tem conhecimento ou paixão profunda.
+            </p>
+            <p>Quando uma ação envolve diretamente um Interesse Especial:</p>
+            <ul>
+              <li>O jogador rola <strong>+1 dado extra</strong> em todos os testes relacionados</li>
+              <li>Pode recuperar <strong>1 ponto de Sobrecarga</strong> ao dedicar tempo ao interesse durante a sessão</li>
+              <li>Pode usar o interesse para <strong>ajudar outros personagens</strong> com bônus de +1</li>
+            </ul>
+
+            <div class="callout callout-purple">
+              <strong>🌟 Exemplos de Interesses Especiais:</strong> Astronomia, Dinossauros, Minecraft, Trens, Matemática, 
+              Anime específico, História medieval, Biologia marinha, Xadrez, Mitologia nórdica, Línguas, Música clássica…
+              Qualquer coisa pode ser um Interesse Especial!
+            </div>
+
+            <!-- Forças e Fraquezas -->
+            <h3 id="forcas-fraquezas">⚡ Forças &amp; Fraquezas</h3>
+            <p>
+              Forças são características positivas do personagem que podem dar bônus em situações específicas.
+              Fraquezas são desafios genuínos — não punições, mas elementos narrativos que criam tensão interessante.
+            </p>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0">
+              <div class="callout callout-green">
+                <strong>Exemplos de Forças:</strong>
+                <ul style="margin-top:0.5rem">
+                  <li>Memória fotográfica para textos</li>
+                  <li>Atenção extrema a detalhes</li>
+                  <li>Empatia profunda com animais</li>
+                  <li>Capacidade de padrão-reconhecimento</li>
+                  <li>Honestidade radical</li>
+                  <li>Dedicação intensa a causas justas</li>
+                </ul>
+              </div>
+              <div class="callout callout-yellow">
+                <strong>Exemplos de Fraquezas:</strong>
+                <ul style="margin-top:0.5rem">
+                  <li>Dificuldade com sarcasmo</li>
+                  <li>Sensibilidade a sons altos</li>
+                  <li>Rigidez a mudanças de plano</li>
+                  <li>Dificuldade com funções executivas</li>
+                  <li>Masking exaustivo em público</li>
+                  <li>Hipersensibilidade tátil</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Habilidades Especiais -->
+            <h3 id="habilidades-especiais">✨ Habilidades Especiais</h3>
+            <p>
+              Cada personagem começa com <strong>1 Habilidade Especial</strong> — uma capacidade única que vai
+              além dos atributos normais. Ela pode ser usada uma vez por sessão gratuitamente.
+            </p>
+
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Habilidade</th>
+                    <th>Efeito</th>
+                    <th>Requisito</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><strong>Modo Hiperfoco</strong></td><td>Até o fim da cena, rol todos os dados de Foco com vantagem</td><td>Foco 3+</td></tr>
+                  <tr><td><strong>Processamento Paralelo</strong></td><td>Realize duas ações simples em um único turno</td><td>Criatividade 3+</td></tr>
+                  <tr><td><strong>Escudo Sensorial</strong></td><td>Ignore até 3 pontos de Sobrecarga nesta cena</td><td>Regulação 3+</td></tr>
+                  <tr><td><strong>Empatia Profunda</strong></td><td>Descubra a motivação verdadeira de um PNJ</td><td>Empatia 3+</td></tr>
+                  <tr><td><strong>Banco de Dados Interno</strong></td><td>Declare um fato sobre qualquer Interesse Especial como verdade narrativa</td><td>Qualquer Interesse Especial</td></tr>
+                  <tr><td><strong>Stim Power</strong></td><td>Após fazer uma stimming, recupere 2 pontos de Sobrecarga</td><td>Qualquer personagem</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <hr class="divider" />
+
+          <!-- ======================== SISTEMA DE TESTES ======================== -->
+          <section id="testes" aria-labelledby="h-testes">
+            <h2 id="h-testes">🎲 Sistema de Testes</h2>
+            <p>
+              Quando um personagem tenta algo com resultado incerto, é hora de rolar os dados.
+            </p>
+
+            <h3>Como fazer um teste</h3>
+            <ol>
+              <li>O Narrador define qual atributo é relevante para a ação</li>
+              <li>O jogador junta <strong>tantos dados d6 quanto o valor do atributo</strong></li>
+              <li>Se houver Interesse Especial relacionado, adiciona <strong>+1 dado</strong></li>
+              <li>Se houver uma Força relevante, adiciona <strong>+1 dado</strong></li>
+              <li>Rola todos os dados e conta os <strong>sucessos</strong> (resultados 4, 5 ou 6)</li>
+            </ol>
+
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Sucessos</th>
+                    <th>Resultado</th>
+                    <th>Narrativa</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><span class="badge badge-blue">0</span></td><td>Falha</td><td>A ação falha. O Narrador pode complicar a situação.</td></tr>
+                  <tr><td><span class="badge badge-yellow">1</span></td><td>Sucesso Parcial</td><td>Consegue, mas com custo ou complicação.</td></tr>
+                  <tr><td><span class="badge badge-green">2–3</span></td><td>Sucesso</td><td>Consegue o que pretendia.</td></tr>
+                  <tr><td><span class="badge badge-purple">4+</span></td><td>Sucesso Crítico</td><td>Supera as expectativas! Bônus narrativo à escolha do jogador.</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>Dificuldades</h3>
+            <p>O Narrador pode ajustar a dificuldade exigindo um número mínimo de sucessos:</p>
+
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Dificuldade</th>
+                    <th>Sucessos necessários</th>
+                    <th>Exemplo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Trivial</td><td>0 (sem rolagem)</td><td>Lembrar uma informação básica do seu Interesse Especial</td></tr>
+                  <tr><td>Simples</td><td>1</td><td>Explicar um conceito conhecido para alguém</td></tr>
+                  <tr><td>Moderado</td><td>2</td><td>Navegar uma situação social desconfortável</td></tr>
+                  <tr><td>Difícil</td><td>3</td><td>Convencer alguém de algo que discorda</td></tr>
+                  <tr><td>Heroico</td><td>4+</td><td>Processar um ambiente extremamente caótico sem entrar em meltdown</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>Testes Opostos</h3>
+            <p>
+              Quando dois personagens se opõem diretamente, ambos rolam seus dados. Vence quem obtiver
+              mais sucessos. Em empate, o atacante/iniciante obtém um sucesso parcial.
+            </p>
+
+            <div class="callout callout-blue">
+              <strong>💡 Princípio do Narrador:</strong> Nem toda ação exige rolagem. Reserve os dados para momentos
+              de tensão genuína. Ações dentro do Interesse Especial do personagem em ambientes confortáveis
+              geralmente são sucessos automáticos.
+            </div>
+          </section>
+
+          <hr class="divider" />
+
+          <!-- ======================== SOBRECARGA SENSORIAL ======================== -->
+          <section id="sobrecarga" aria-labelledby="h-sobrecarga">
+            <h2 id="h-sobrecarga">🌡️ Sobrecarga Sensorial</h2>
+            <p>
+              A Sobrecarga Sensorial é a principal mecânica de tensão do jogo. Todo personagem tem uma
+              <strong>Barra de Sobrecarga</strong> de 10 pontos (representada pelos checkboxes na ficha).
+            </p>
+
+            <h3>Ganhando Sobrecarga</h3>
+            <p>O personagem ganha Sobrecarga quando:</p>
+            <ul>
+              <li>Falha em um teste (+1 ponto)</li>
+              <li>Entra em ambiente barulhento, lotado ou caótico (+1 a +3 dependendo da intensidade)</li>
+              <li>Tem seu plano ou rotina interrompido inesperadamente (+1)</li>
+              <li>Realiza masking por período prolongado (+1 por hora de jogo)</li>
+              <li>Experimenta uma situação social muito desgastante (+1 a +2)</li>
+              <li>O Narrador usa um gatilho sensorial do personagem (+2)</li>
+            </ul>
+
+            <h3>Perdendo Sobrecarga (Regulação)</h3>
+            <p>O personagem pode reduzir sua Sobrecarga quando:</p>
+            <ul>
+              <li>Dedica tempo ao Interesse Especial (−1 a −2 por cena)</li>
+              <li>Vai para um ambiente tranquilo e familiar (−1 por turno de descanso)</li>
+              <li>Usa a Habilidade Especial <em>Stim Power</em> (−2 imediato)</li>
+              <li>Recebe apoio genuíno de outro personagem que é aliado (−1)</li>
+              <li>Dorme ou descansa completamente entre sessões (volta para 0)</li>
+            </ul>
+
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Nível</th>
+                    <th>Efeito</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td><span class="badge badge-green">0–3</span></td><td>Normal. Sem penalidades.</td></tr>
+                  <tr><td><span class="badge badge-yellow">4–6</span></td><td>Sobrecarga Moderada: −1 dado em todos os testes sociais.</td></tr>
+                  <tr><td><span class="badge badge-yellow">7–8</span></td><td>Sobrecarga Alta: −1 dado em todos os testes. Comunicação verbal fica difícil (−2 em Comunicação).</td></tr>
+                  <tr><td><span class="badge badge-blue">9</span></td><td>Limiar crítico: O personagem deve rolar Regulação (dificuldade 2) ou entrar em Meltdown.</td></tr>
+                  <tr><td><span class="badge" style="background:rgba(239,68,68,0.15);color:#ef4444;border:1px solid rgba(239,68,68,0.3)">10</span></td><td>Meltdown ou Shutdown automático. Sem rolagem.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <hr class="divider" />
+
+          <!-- ======================== MELTDOWN ======================== -->
+          <section id="meltdown" aria-labelledby="h-meltdown">
+            <h2 id="h-meltdown">🔴 Meltdown</h2>
+            <p>
+              Um Meltdown ocorre quando a Sobrecarga chega a 10 ou quando o personagem falha no teste de Regulação
+              com 9 pontos de sobrecarga. É uma resposta neurológica involuntária — não uma escolha, não uma fraqueza.
+            </p>
+
+            <div class="callout callout-yellow">
+              <strong>⚠️ Importante para o grupo:</strong> Cenas de Meltdown devem ser narradas com empatia e respeito.
+              O personagem não está "fraco" — está atingindo seu limite humano. O grupo deve responder com cuidado, não julgamento.
+            </div>
+
+            <h3>Fases do Meltdown</h3>
+
+            <button class="collapsible-header" aria-expanded="false">
+              <span>Fase 1: Rumble (Acumulação)</span>
+              <span class="collapsible-icon">▼</span>
+            </button>
+            <div class="collapsible-body">
+              <p>Começa quando a sobrecarga atinge 7+. Sinais visíveis ao grupo:</p>
+              <ul>
+                <li>Dificuldade crescente de comunicação</li>
+                <li>Estímulos ficam mais intensos</li>
+                <li>O personagem pode começar a se retirar socialmente</li>
+                <li>Stimming aumenta em frequência</li>
+              </ul>
+              <p><em>Mecanicamente:</em> penalidades de sobrecarga alta se aplicam.</p>
+            </div>
+
+            <button class="collapsible-header" aria-expanded="false">
+              <span>Fase 2: Rage (Explosão)</span>
+              <span class="collapsible-icon">▼</span>
+            </button>
+            <div class="collapsible-body">
+              <p>O meltdown propriamente dito. O personagem perde controle voluntário.</p>
+              <ul>
+                <li>Pode chorar, gritar, se mover incontrolavelmente ou se paralisar</li>
+                <li>Não consegue processar informações novas</li>
+                <li>Comunicação pode estar totalmente comprometida</li>
+                <li>Ações defensivas automáticas (não intencionais)</li>
+              </ul>
+              <p><em>Mecanicamente:</em> O jogador descreve a reação. O Narrador <strong>não</strong> pode forçar ações do personagem — apenas a situação externa.</p>
+            </div>
+
+            <button class="collapsible-header" aria-expanded="false">
+              <span>Fase 3: Recovery (Recuperação)</span>
+              <span class="collapsible-icon">▼</span>
+            </button>
+            <div class="collapsible-body">
+              <p>Após o pico do meltdown, o personagem precisa de tempo.</p>
+              <ul>
+                <li>Exaustão profunda</li>
+                <li>Pode precisar de horas ou dias para recuperação total</li>
+                <li>Vulnerabilidade emocional elevada</li>
+                <li>Possível vergonha ou confusão sobre o ocorrido</li>
+              </ul>
+              <p><em>Mecanicamente:</em> A Sobrecarga vai para 5. O personagem não pode usar Habilidades Especiais até a próxima cena.</p>
+            </div>
+          </section>
+
+          <hr class="divider" />
+
+          <!-- ======================== SHUTDOWN ======================== -->
+          <section id="shutdown" aria-labelledby="h-shutdown">
+            <h2 id="h-shutdown">🔵 Shutdown</h2>
+            <p>
+              Diferente do Meltdown (explosão para fora), o Shutdown é um fechamento para dentro.
+              O personagem "desliga" os sistemas não-essenciais para sobreviver à sobrecarga.
+            </p>
+
+            <h3>Efeitos do Shutdown</h3>
+            <ul>
+              <li>Comunicação verbal pode cessar completamente (mutismo situacional)</li>
+              <li>Expressão facial pode tornar-se neutra/plana</li>
+              <li>Movimento pode ficar lento ou cessado</li>
+              <li>O personagem pode parecer "ausente" mas está consciente</li>
+              <li>Experiências sensoriais ficam "distantes"</li>
+            </ul>
+
+            <div class="callout callout-blue">
+              <strong>💙 Para o grupo:</strong> Um personagem em Shutdown ainda está presente e consciente.
+              Comunique-se com eles usando perguntas sim/não. Ofereça um espaço seguro e silencioso.
+              Não force interação — aguarde o retorno natural.
+            </div>
+
+            <p>
+              <em>Mecanicamente:</em> O personagem não pode realizar ações ativas, mas pode observar e processar.
+              Após 1 turno completo de descanso, pode sair do Shutdown gastando 1 ponto de Regulação.
+            </p>
+          </section>
+
+          <hr class="divider" />
+
+          <!-- ======================== RECUPERAÇÃO ======================== -->
+          <section id="recuperacao" aria-labelledby="h-recuperacao">
+            <h2 id="h-recuperacao">💚 Recuperação &amp; Autocuidado</h2>
+            <p>
+              O autocuidado é mecânica fundamental do jogo. Personagens que cuidam de si mesmos funcionam melhor.
+            </p>
+
+            <h3>Estratégias de Recuperação</h3>
+
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Ação</th>
+                    <th>Sobrecarga Reduzida</th>
+                    <th>Tempo necessário</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Tempo no Interesse Especial</td><td>−1 a −3</td><td>1 cena</td></tr>
+                  <tr><td>Descanso em ambiente seguro</td><td>−2</td><td>1 cena</td></tr>
+                  <tr><td>Conversa genuína com aliado</td><td>−1</td><td>1 turno</td></tr>
+                  <tr><td>Estimulação sensorial positiva</td><td>−1</td><td>1 turno</td></tr>
+                  <tr><td>Sono completo</td><td>Reset para 0</td><td>Entre sessões</td></tr>
+                  <tr><td>Terapia / Apoio profissional</td><td>−3 + bônus narrativo</td><td>1 sessão</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="callout callout-green">
+              <strong>🌿 Lembrete:</strong> Pedir ajuda, descansar e estabelecer limites são formas de força,
+              não fraqueza. Personagens que praticam autocuidado são mais resilientes a longo prazo.
+            </div>
+          </section>
+
+          <hr class="divider" />
+
+          <!-- ======================== NARRADOR ======================== -->
+          <section id="narrador" aria-labelledby="h-narrador">
+            <h2 id="h-narrador">🎭 O Narrador</h2>
+            <p>
+              O Narrador (também chamado de Facilitador) é responsável por guiar a história, criar PNJs (Personagens
+              Não-Jogadores) e garantir que o jogo seja seguro e significativo para todos.
+            </p>
+
+            <h3>Responsabilidades do Narrador</h3>
+            <ul>
+              <li>Criar o mundo e seus habitantes com representação autêntica</li>
+              <li>Respeitar os limites estabelecidos na Sessão Zero</li>
+              <li>Garantir que todos os jogadores tenham cenas de destaque</li>
+              <li>Gerenciar o ritmo (pausas são bem-vindas e necessárias)</li>
+              <li>Adaptar o jogo às necessidades do grupo</li>
+            </ul>
+
+            <h3>Princípios da Narrativa Neurodivergente</h3>
+            <ol>
+              <li><strong>Mostre, não escreva:</strong> Deixe os jogadores descobrirem as nuances pelos próprios personagens</li>
+              <li><strong>Sem cura:</strong> Personagens não são "curados" de sua neurodivergência — eles crescem dentro dela</li>
+              <li><strong>Sistemas são o vilão:</strong> Prefira conflitos com sistemas injustos a conflitos interpessoais tóxicos</li>
+              <li><strong>Celebre as diferenças:</strong> Crie situações onde Interesses Especiais e características únicas sejam a solução</li>
+              <li><strong>Representação com pesquisa:</strong> Consulte experiências reais de pessoas neurodivergentes</li>
+            </ol>
+          </section>
+
+          <hr class="divider" />
+
+          <!-- ======================== CENÁRIOS ======================== -->
+          <section id="cenarios" aria-labelledby="h-cenarios">
+            <h2 id="h-cenarios">🗺️ Cenários &amp; Aventuras</h2>
+            <p>AUTISTA: O LAUDO pode ser ambientado em qualquer época ou lugar. Alguns pontos de partida:</p>
+
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Cenário</th>
+                    <th>Premissa</th>
+                    <th>Temas</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Brasil Contemporâneo</strong></td>
+                    <td>Jovens neurodivergentes numa cidade brasileira buscando seus laudos e construindo comunidade</td>
+                    <td>Burocracia, inclusão, amizade, identidade</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Academia Neurodivergente</strong></td>
+                    <td>Uma escola especial onde os talentos únicos são habilidades mágicas reais</td>
+                    <td>Educação, superpoderes, aceitação</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Coletivo Ativista</strong></td>
+                    <td>Grupo luta por direitos e representação no mundo digital e físico</td>
+                    <td>Ativismo, comunidade, mudança social</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Mundo de Alta Fantasia</strong></td>
+                    <td>Um reino onde cada "divergência" é na verdade um tipo de magia ancestral</td>
+                    <td>Fantasia épica, pertencimento, história</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Ficção Científica</strong></td>
+                    <td>Nave espacial tripulada por uma equipe neurodivergente que se complementa</td>
+                    <td>Cooperação, diversidade, exploração</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>Aventura: "O Primeiro Laudo"</h3>
+            <p>Uma aventura de sessão única ideal para introduzir novos jogadores:</p>
+            <ol>
+              <li><strong>Premissa:</strong> Um dos personagens recebeu a notícia que pode ter seu laudo por uma clínica especializada, mas há uma fila de espera e recursos limitados.</li>
+              <li><strong>Desafio central:</strong> Navegar o sistema de saúde, conseguir documentação, lidar com profissionais que não acreditam no diagnóstico.</li>
+              <li><strong>Resolução:</strong> Com apoio mútuo e uso criativo dos Interesses Especiais, o grupo encontra um caminho.</li>
+              <li><strong>Mensagem:</strong> O laudo não define quem você é — mas pode abrir portas. E você não precisa enfrentar isso sozinho.</li>
+            </ol>
+          </section>
+
+          <hr class="divider" />
+
+          <!-- ======================== GLOSSÁRIO ======================== -->
+          <section id="glossario" aria-labelledby="h-glossario">
+            <h2 id="h-glossario">📚 Glossário</h2>
+
+            <dl style="display:grid;gap:0.75rem">
+              <div class="card" style="padding:0.85rem 1rem">
+                <dt style="font-weight:700;color:var(--accent-blue)">Masking</dt>
+                <dd style="color:var(--text-secondary);font-size:0.9rem;margin-top:0.25rem">Processo de suprimir ou esconder características neurodivergentes para se adaptar a normas sociais. Muito cansativo e aumenta Sobrecarga.</dd>
+              </div>
+              <div class="card" style="padding:0.85rem 1rem">
+                <dt style="font-weight:700;color:var(--accent-blue)">Stimming</dt>
+                <dd style="color:var(--text-secondary);font-size:0.9rem;margin-top:0.25rem">Comportamento de autoestimulação (balançar, bater dedos, repetir palavras) que ajuda na regulação sensorial e emocional.</dd>
+              </div>
+              <div class="card" style="padding:0.85rem 1rem">
+                <dt style="font-weight:700;color:var(--accent-blue)">Meltdown</dt>
+                <dd style="color:var(--text-secondary);font-size:0.9rem;margin-top:0.25rem">Resposta neurológica involuntária à sobrecarga, que se manifesta "para fora" (choro intenso, movimentos involuntários, dificuldade de falar).</dd>
+              </div>
+              <div class="card" style="padding:0.85rem 1rem">
+                <dt style="font-weight:700;color:var(--accent-blue)">Shutdown</dt>
+                <dd style="color:var(--text-secondary);font-size:0.9rem;margin-top:0.25rem">Resposta neurológica à sobrecarga que se manifesta "para dentro" (fechamento, mutismo situacional, imobilidade).</dd>
+              </div>
+              <div class="card" style="padding:0.85rem 1rem">
+                <dt style="font-weight:700;color:var(--accent-blue)">Hiperfoco</dt>
+                <dd style="color:var(--text-secondary);font-size:0.9rem;margin-top:0.25rem">Estado de concentração extremamente intensa em um assunto de interesse. Pode ser uma superpotência quando aplicado intencionalmente.</dd>
+              </div>
+              <div class="card" style="padding:0.85rem 1rem">
+                <dt style="font-weight:700;color:var(--accent-blue)">Neurodivergente</dt>
+                <dd style="color:var(--text-secondary);font-size:0.9rem;margin-top:0.25rem">Pessoa cujo funcionamento neurológico difere do que é considerado típico. Inclui autismo, TDAH, dislexia, TOC, entre outros.</dd>
+              </div>
+              <div class="card" style="padding:0.85rem 1rem">
+                <dt style="font-weight:700;color:var(--accent-blue)">TEA</dt>
+                <dd style="color:var(--text-secondary);font-size:0.9rem;margin-top:0.25rem">Transtorno do Espectro Autista. Um espectro diverso de formas de processamento neurológico.</dd>
+              </div>
+              <div class="card" style="padding:0.85rem 1rem">
+                <dt style="font-weight:700;color:var(--accent-blue)">PNJ</dt>
+                <dd style="color:var(--text-secondary);font-size:0.9rem;margin-top:0.25rem">Personagem Não-Jogador. Personagem controlado pelo Narrador.</dd>
+              </div>
+              <div class="card" style="padding:0.85rem 1rem">
+                <dt style="font-weight:700;color:var(--accent-blue)">d6</dt>
+                <dd style="color:var(--text-secondary);font-size:0.9rem;margin-top:0.25rem">Dado de seis faces. O único tipo de dado usado em AUTISTA: O LAUDO.</dd>
+              </div>
+            </dl>
+          </section>
+
+          <!-- CTA ao final -->
+          <div style="text-align:center;margin-top:3rem;padding:2rem;background:var(--bg-secondary);border-radius:var(--radius);border:1px solid var(--border-color)">
+            <h3 style="margin-bottom:0.75rem">Pronto para criar seu personagem?</h3>
+            <p>Use o criador de ficha interativo e exporte em PDF para levar para a sua mesa!</p>
+            <a href="ficha.html" class="btn btn-primary btn-lg" style="margin-top:1rem">✏️ Criar Ficha Agora</a>
+          </div>
+
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer role="contentinfo">
+    <div class="container">
+      <p style="font-size:1rem;font-weight:700;margin-bottom:0.5rem"><span class="gradient-text">AUTISTA: O LAUDO</span></p>
+      <p>RPG de Storytelling Neurodivergente Brasileiro</p>
+      <p>
+        <a href="https://github.com/bmsrk/autistaolaudo" target="_blank" rel="noopener">GitHub</a>
+        &nbsp;·&nbsp;
+        <a href="regras.html">Regras</a>
+        &nbsp;·&nbsp;
+        <a href="ficha.html">Ficha</a>
+      </p>
+      <p style="margin-top:1rem">Licença <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a> — Feito com 🧩 no Brasil</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

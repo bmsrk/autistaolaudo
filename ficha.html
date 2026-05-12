@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Criar Ficha — AUTISTA: O LAUDO</title>
+  <meta name="description" content="Criador de ficha interativo do RPG AUTISTA: O LAUDO. Preencha sua ficha de personagem e exporte em PDF." />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <!-- jsPDF via CDN with Subresource Integrity -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"
+          integrity="sha384-JcnsjUPPylna1s1fvi1u12X5qjY5OL56iySh75FdtrwhO/SWXgMjoVqcKyIIWOLk"
+          crossorigin="anonymous" defer></script>
+</head>
+<body>
+  <div id="scroll-progress" role="progressbar" aria-label="Progresso de rolagem"></div>
+
+  <!-- ==================== NAVBAR ==================== -->
+  <nav class="navbar" role="navigation" aria-label="Navegação principal">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-brand" aria-label="Página inicial">⬡ AUTISTA: O LAUDO</a>
+
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="navbar-links" id="nav-links" role="list">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="regras.html">Regras</a></li>
+        <li><a href="ficha.html">Criar Ficha</a></li>
+      </ul>
+
+      <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Alternar tema">
+        ☀️ Claro
+      </button>
+    </div>
+  </nav>
+
+  <!-- ==================== PAGE HEADER ==================== -->
+  <header style="padding:2.5rem 0 1.75rem;text-align:center;background:var(--bg-secondary);border-bottom:1px solid var(--border-color)">
+    <div class="container">
+      <span class="badge badge-green" style="margin-bottom:0.75rem">✏️ Criador de Ficha</span>
+      <h1><span class="gradient-text">Criar Personagem</span></h1>
+      <p style="max-width:580px;margin:0.75rem auto 0">Preencha os campos, veja a prévia ao vivo e exporte sua ficha em PDF com um clique.</p>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN ==================== -->
+  <main class="section">
+    <div class="container">
+
+      <!-- Action bar -->
+      <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:2rem;justify-content:flex-end" role="toolbar" aria-label="Ações da ficha">
+        <button class="btn btn-outline" id="btn-save" aria-label="Salvar ficha no navegador">
+          💾 Salvar
+        </button>
+        <button class="btn btn-outline" id="btn-clear" aria-label="Limpar ficha" style="color:var(--text-muted);border-color:var(--border-color)">
+          🗑️ Limpar
+        </button>
+        <button class="btn btn-primary btn-lg" id="btn-pdf" aria-label="Gerar PDF da ficha">
+          ⬇️ Gerar PDF
+        </button>
+      </div>
+
+      <div class="ficha-layout">
+
+        <!-- ============ FORM ============ -->
+        <form id="ficha-form" aria-label="Formulário de criação de personagem" novalidate>
+
+          <!-- ---------- Identidade ---------- -->
+          <section aria-labelledby="sec-identidade">
+            <h2 id="sec-identidade" style="margin-bottom:1.25rem">🪪 Identidade</h2>
+
+            <div style="display:grid;grid-template-columns:1fr 120px;gap:1rem">
+              <div class="form-group">
+                <label class="form-label" for="nome">Nome do Personagem <span style="color:#ef4444" aria-hidden="true">*</span></label>
+                <input type="text" id="nome" class="form-control" placeholder="Como seu personagem é chamado?" autocomplete="off" aria-required="true" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="idade">Idade</label>
+                <input type="text" id="idade" class="form-control" placeholder="Ex: 19" autocomplete="off" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" id="suporte-label">Nível de Suporte (DSM-5)</label>
+              <div class="radio-group" role="radiogroup" aria-labelledby="suporte-label">
+                <input type="radio" class="radio-option" id="suporte1" name="suporte" value="1" />
+                <label class="radio-label" for="suporte1">Nível 1 — Algum apoio</label>
+
+                <input type="radio" class="radio-option" id="suporte2" name="suporte" value="2" />
+                <label class="radio-label" for="suporte2">Nível 2 — Apoio substancial</label>
+
+                <input type="radio" class="radio-option" id="suporte3" name="suporte" value="3" />
+                <label class="radio-label" for="suporte3">Nível 3 — Apoio muito substancial</label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="laudo">Status do Laudo</label>
+              <select id="laudo" class="form-control" aria-label="Status do laudo">
+                <option value="">Selecione…</option>
+                <option value="Diagnosticado(a) formalmente">Diagnosticado(a) formalmente</option>
+                <option value="Em processo de diagnóstico">Em processo de diagnóstico</option>
+                <option value="Suspeita clínica">Suspeita clínica</option>
+                <option value="Autoidentificado(a)">Autoidentificado(a)</option>
+                <option value="Prefiro não informar">Prefiro não informar</option>
+              </select>
+            </div>
+          </section>
+
+          <hr class="divider" />
+
+          <!-- ---------- Atributos ---------- -->
+          <section aria-labelledby="sec-atributos">
+            <h2 id="sec-atributos" style="margin-bottom:0.5rem">📊 Atributos</h2>
+            <p style="font-size:0.9rem;margin-bottom:1rem;color:var(--text-muted)">
+              Distribua <strong style="color:var(--text-primary)">12 pontos</strong> entre os atributos. Mín. 1 | Máx. 4 por atributo.
+            </p>
+
+            <div class="points-counter" aria-live="polite" aria-atomic="true">
+              Pontos restantes: <strong id="points-remaining">6</strong>
+            </div>
+
+            <div id="attrs-container" class="attr-group" role="group" aria-label="Atributos do personagem">
+              <!-- Populated by ficha.js -->
+            </div>
+          </section>
+
+          <hr class="divider" />
+
+          <!-- ---------- Interesses Especiais ---------- -->
+          <section aria-labelledby="sec-interesses">
+            <h2 id="sec-interesses" style="margin-bottom:0.5rem">⭐ Interesses Especiais</h2>
+            <p style="font-size:0.9rem;margin-bottom:1rem;color:var(--text-muted)">
+              De 1 a 8 interesses. Quando relevantes, dão +1 dado nos testes e ajudam a recuperar Sobrecarga.
+            </p>
+
+            <div id="interests-container" class="interest-fields" aria-label="Lista de interesses especiais">
+              <!-- Populated by ficha.js -->
+            </div>
+            <button type="button" class="add-btn" id="add-interest" aria-label="Adicionar interesse especial">
+              + Adicionar Interesse
+            </button>
+          </section>
+
+          <hr class="divider" />
+
+          <!-- ---------- Forças & Fraquezas ---------- -->
+          <section aria-labelledby="sec-forcas">
+            <h2 id="sec-forcas" style="margin-bottom:1.25rem">⚡ Forças &amp; Fraquezas</h2>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+              <div class="form-group">
+                <label class="form-label" for="forcas">Forças</label>
+                <textarea id="forcas" class="form-control" rows="4" placeholder="Ex: Memória fotográfica, atenção a detalhes, empatia profunda com animais…"></textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="fraquezas">Fraquezas / Desafios</label>
+                <textarea id="fraquezas" class="form-control" rows="4" placeholder="Ex: Dificuldade com sarcasmo, hipersensibilidade tátil, rigidez a mudanças…"></textarea>
+              </div>
+            </div>
+          </section>
+
+          <hr class="divider" />
+
+          <!-- ---------- Habilidades Especiais ---------- -->
+          <section aria-labelledby="sec-habilidades">
+            <h2 id="sec-habilidades" style="margin-bottom:0.5rem">✨ Habilidades Especiais</h2>
+            <p style="font-size:0.9rem;margin-bottom:1rem;color:var(--text-muted)">
+              Pode ser usada 1 vez por sessão gratuitamente. Exemplos: Modo Hiperfoco, Stim Power, Empatia Profunda…
+            </p>
+            <textarea id="habilidades" class="form-control" rows="3" placeholder="Descreva as habilidades especiais do personagem…"></textarea>
+          </section>
+
+          <hr class="divider" />
+
+          <!-- ---------- Sobrecarga Sensorial ---------- -->
+          <section aria-labelledby="sec-sobrecarga">
+            <h2 id="sec-sobrecarga" style="margin-bottom:0.5rem">🌡️ Barra de Sobrecarga Sensorial</h2>
+            <p style="font-size:0.9rem;margin-bottom:1rem;color:var(--text-muted)">
+              Marque os quadrados conforme a sobrecarga aumenta. Com 10, ocorre Meltdown ou Shutdown.
+            </p>
+
+            <div id="overload-container" role="group" aria-label="Barra de sobrecarga sensorial">
+              <!-- Populated by ficha.js -->
+            </div>
+
+            <div style="display:flex;gap:1.5rem;margin-top:0.75rem;font-size:0.82rem;flex-wrap:wrap">
+              <span style="color:var(--accent-green)">▪ 0–3: Normal</span>
+              <span style="color:var(--accent-yellow)">▪ 4–6: Moderada (−1 dado social)</span>
+              <span style="color:#f97316">▪ 7–8: Alta (−1 dado tudo)</span>
+              <span style="color:#ef4444">▪ 9–10: Meltdown/Shutdown</span>
+            </div>
+          </section>
+
+          <hr class="divider" />
+
+          <!-- ---------- Inventário ---------- -->
+          <section aria-labelledby="sec-inventario">
+            <h2 id="sec-inventario" style="margin-bottom:0.5rem">🎒 Inventário</h2>
+            <p style="font-size:0.9rem;margin-bottom:1rem;color:var(--text-muted)">
+              Itens, ferramentas de regulação, objetos de conforto…
+            </p>
+            <textarea id="inventario" class="form-control" rows="3" placeholder="Ex: Fones com cancelamento de ruído, squeezable, caderno de anotações, medicação…"></textarea>
+          </section>
+
+          <hr class="divider" />
+
+          <!-- ---------- História ---------- -->
+          <section aria-labelledby="sec-historia">
+            <h2 id="sec-historia" style="margin-bottom:0.5rem">📖 História</h2>
+            <p style="font-size:0.9rem;margin-bottom:1rem;color:var(--text-muted)">
+              Contexto, motivação e backstory do personagem (livre).
+            </p>
+            <textarea id="historia" class="form-control" rows="5" placeholder="Quem é este personagem? O que o motiva? Qual é a sua história?"></textarea>
+          </section>
+
+          <hr class="divider" />
+
+          <!-- Action buttons (bottom) -->
+          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center">
+            <button type="button" class="btn btn-outline" id="btn-save-2" aria-label="Salvar ficha no navegador" onclick="document.getElementById('btn-save').click()">
+              💾 Salvar Ficha
+            </button>
+            <button type="button" class="btn btn-primary btn-lg" id="btn-pdf-2" aria-label="Gerar PDF da ficha" onclick="document.getElementById('btn-pdf').click()">
+              ⬇️ Gerar PDF da Ficha
+            </button>
+          </div>
+
+        </form>
+
+        <!-- ============ PREVIEW ============ -->
+        <aside aria-label="Prévia da ficha">
+          <div style="margin-bottom:1rem;text-align:center">
+            <span class="badge badge-blue">👁️ Prévia ao Vivo</span>
+          </div>
+          <div id="sheet-preview" class="sheet-preview" aria-live="polite" aria-atomic="true" aria-label="Prévia da ficha de personagem">
+            <!-- Populated by ficha.js -->
+            <div style="text-align:center;padding:2rem;color:var(--text-muted)">
+              <div style="font-size:3rem;margin-bottom:0.75rem" aria-hidden="true">✏️</div>
+              <p>Preencha os campos ao lado para ver a prévia da sua ficha aqui.</p>
+            </div>
+          </div>
+
+          <!-- Tips -->
+          <div class="card" style="margin-top:1rem;font-size:0.85rem">
+            <h4 style="margin-bottom:0.5rem;font-size:0.9rem">💡 Dicas</h4>
+            <ul style="padding-left:1.2rem;color:var(--text-muted);font-size:0.82rem">
+              <li>A ficha é salva automaticamente no seu navegador</li>
+              <li>O PDF é gerado offline — sem enviar dados para servidores</li>
+              <li>Você pode editar o PDF pelo Adobe Acrobat depois</li>
+              <li>Compartilhe o arquivo PDF pelo WhatsApp, Discord, etc.</li>
+            </ul>
+          </div>
+        </aside>
+
+      </div><!-- /.ficha-layout -->
+    </div><!-- /.container -->
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer role="contentinfo">
+    <div class="container">
+      <p style="font-size:1rem;font-weight:700;margin-bottom:0.5rem"><span class="gradient-text">AUTISTA: O LAUDO</span></p>
+      <p>RPG de Storytelling Neurodivergente Brasileiro</p>
+      <p>
+        <a href="https://github.com/bmsrk/autistaolaudo" target="_blank" rel="noopener">GitHub</a>
+        &nbsp;·&nbsp;
+        <a href="regras.html">Regras</a>
+        &nbsp;·&nbsp;
+        <a href="ficha.html">Ficha</a>
+      </p>
+      <p style="margin-top:1rem">Licença <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a> — Feito com 🧩 no Brasil</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/ficha.js"></script>
+</body>
+</html>

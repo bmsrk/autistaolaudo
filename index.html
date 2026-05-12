@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AUTISTA: O LAUDO — RPG de Storytelling Neurodivergente Brasileiro</title>
+  <meta name="description" content="Site oficial do RPG AUTISTA: O LAUDO — jogo de storytelling neurodivergente brasileiro. Crie sua ficha, leia as regras e explore narrativas únicas." />
+  <meta property="og:title" content="AUTISTA: O LAUDO — RPG Neurodivergente" />
+  <meta property="og:description" content="RPG de storytelling neurodivergente brasileiro. Jogue, crie, se expresse." />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <!-- Scroll progress -->
+  <div id="scroll-progress" role="progressbar" aria-label="Progresso de leitura"></div>
+
+  <!-- ==================== NAVBAR ==================== -->
+  <nav class="navbar" role="navigation" aria-label="Navegação principal">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-brand" aria-label="AUTISTA: O LAUDO — página inicial">⬡ AUTISTA: O LAUDO</a>
+
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="navbar-links" id="nav-links" role="list">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="regras.html">Regras</a></li>
+        <li><a href="ficha.html">Criar Ficha</a></li>
+      </ul>
+
+      <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Alternar tema">
+        ☀️ Claro
+      </button>
+    </div>
+  </nav>
+
+  <!-- ==================== HERO ==================== -->
+  <header class="hero" id="inicio">
+    <div class="container">
+      <div class="hero-kicker">
+        <span class="badge badge-green">🇧🇷 RPG Brasileiro</span>
+        &nbsp;
+        <span class="badge badge-blue">Open Source</span>
+        &nbsp;
+        <span class="badge badge-purple">Neurodivergente</span>
+      </div>
+
+      <h1>
+        <span class="gradient-text">AUTISTA: O LAUDO</span>
+      </h1>
+
+      <p class="hero-desc">
+        RPG de Storytelling Neurodivergente Brasileiro.<br>
+        Jogue como você é. Narre sua história. Celebre sua diferença.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="ficha.html" class="btn btn-primary btn-lg" aria-label="Criar ficha de personagem">
+          ✏️ Criar Ficha
+        </a>
+        <a href="regras.html" class="btn btn-secondary btn-lg" aria-label="Ler o manual de regras">
+          📖 Ler Regras
+        </a>
+        <a href="ficha.html#btn-pdf" class="btn btn-outline btn-lg" aria-label="Gerar exemplo de PDF da ficha">
+          ⬇️ Baixar PDF
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== O QUE É ==================== -->
+  <main>
+    <section class="section" id="sobre" aria-labelledby="sobre-heading">
+      <div class="container">
+        <div class="section-title">
+          <h2 id="sobre-heading">O que é <span class="gradient-text">AUTISTA: O LAUDO</span>?</h2>
+          <p>Um jogo de narrativa colaborativa onde cada jogador interpreta uma pessoa neurodivergente em busca de autoconhecimento, apoio e conexão.</p>
+        </div>
+
+        <div class="features-grid">
+          <article class="card" aria-label="Storytelling colaborativo">
+            <div class="feature-icon" aria-hidden="true">🎭</div>
+            <h3>Storytelling Colaborativo</h3>
+            <p>Não há "vencedores". Cada sessão é uma história vivida em conjunto — com desafios reais, superpoderes ocultos e narrativa guiada pelo grupo.</p>
+          </article>
+
+          <article class="card" aria-label="Representação autêntica">
+            <div class="feature-icon" aria-hidden="true">🧩</div>
+            <h3>Representação Autêntica</h3>
+            <p>Regras criadas por e para pessoas neurodivergentes. Meltdowns, interesses especiais e níveis de suporte são mecânicas, não punições.</p>
+          </article>
+
+          <article class="card" aria-label="Acessível e inclusivo">
+            <div class="feature-icon" aria-hidden="true">♿</div>
+            <h3>Acessível & Inclusivo</h3>
+            <p>Design pensado para alta sensibilidade visual. Modo escuro/claro, fontes grandes, linguagem clara e direta. Para todos os tipos de cérebros.</p>
+          </article>
+
+          <article class="card" aria-label="Sistema simplificado">
+            <div class="feature-icon" aria-hidden="true">🎲</div>
+            <h3>Sistema Simplificado</h3>
+            <p>Usa apenas dados de 6 faces (d6). Mecânicas intuitivas baseadas em atributos neurodivergentes reais: Foco, Empatia, Regulação e mais.</p>
+          </article>
+
+          <article class="card" aria-label="Ficha digital interativa">
+            <div class="feature-icon" aria-hidden="true">📋</div>
+            <h3>Ficha Digital Interativa</h3>
+            <p>Crie sua ficha direto no navegador com preview em tempo real. Exporte para PDF com um clique — sem criar conta ou instalar nada.</p>
+          </article>
+
+          <article class="card" aria-label="100% open source">
+            <div class="feature-icon" aria-hidden="true">🌐</div>
+            <h3>100% Open Source</h3>
+            <p>Todo o conteúdo é livre para uso, adaptação e distribuição. Contribua no GitHub, crie aventuras, expanda o universo.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== COMO JOGAR ==================== -->
+    <section class="section" id="como-jogar" style="background:var(--bg-secondary)" aria-labelledby="como-heading">
+      <div class="container">
+        <div class="section-title">
+          <h2 id="como-heading">Como Jogar</h2>
+          <p>Em 3 passos simples você já consegue começar sua primeira aventura.</p>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;counter-reset:steps">
+          <div class="card" style="--n:1;counter-increment:steps">
+            <div style="font-size:2.5rem;font-weight:900;color:var(--accent-blue);opacity:0.4;line-height:1" aria-hidden="true">01</div>
+            <h3>Crie sua Ficha</h3>
+            <p>Escolha nome, nível de suporte e distribua 12 pontos entre os 6 atributos. Defina interesses especiais, forças e fraquezas.</p>
+            <a href="ficha.html" class="btn btn-primary" style="margin-top:0.75rem">Criar agora →</a>
+          </div>
+
+          <div class="card" style="--n:2;counter-increment:steps">
+            <div style="font-size:2.5rem;font-weight:900;color:var(--accent-green);opacity:0.4;line-height:1" aria-hidden="true">02</div>
+            <h3>Leia as Regras</h3>
+            <p>O manual completo está disponível online. Aprenda sobre testes, sobrecarga sensorial, meltdown, habilidades especiais e cenários.</p>
+            <a href="regras.html" class="btn btn-secondary" style="margin-top:0.75rem">Ler regras →</a>
+          </div>
+
+          <div class="card" style="--n:3;counter-increment:steps">
+            <div style="font-size:2.5rem;font-weight:900;color:var(--accent-purple);opacity:0.4;line-height:1" aria-hidden="true">03</div>
+            <h3>Jogue!</h3>
+            <p>Reúna de 2 a 5 pessoas, escolha um Narrador, definam uma premissa e comecem a narrar. Dados d6 e imaginação são tudo que vocês precisam.</p>
+            <a href="regras.html#primeiros-passos" class="btn btn-purple" style="margin-top:0.75rem">Primeiros passos →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ATRIBUTOS PREVIEW ==================== -->
+    <section class="section" id="atributos" aria-labelledby="attrs-heading">
+      <div class="container">
+        <div class="section-title">
+          <h2 id="attrs-heading">Os 6 Atributos</h2>
+          <p>Cada personagem distribui 12 pontos entre estes atributos neurodivergentes. Nenhum estilo de mente é melhor que outro.</p>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem">
+          <div class="card">
+            <span class="badge badge-blue" style="margin-bottom:0.75rem">Cognitivo</span>
+            <h4>🔭 Foco</h4>
+            <p style="font-size:0.9rem">Capacidade de concentrar atenção profunda em tarefas de interesse. Rola em atividades que exigem atenção sustentada.</p>
+          </div>
+          <div class="card">
+            <span class="badge badge-green" style="margin-bottom:0.75rem">Social</span>
+            <h4>💚 Empatia</h4>
+            <p style="font-size:0.9rem">Profundidade emocional e capacidade de se conectar com outros. Rola em interações que exigem leitura emocional.</p>
+          </div>
+          <div class="card">
+            <span class="badge badge-blue" style="margin-bottom:0.75rem">Social</span>
+            <h4>💬 Comunicação</h4>
+            <p style="font-size:0.9rem">Habilidade de expressar pensamentos e compreender mensagens — verbal, escrita, visual, gestual ou digital.</p>
+          </div>
+          <div class="card">
+            <span class="badge badge-yellow" style="margin-bottom:0.75rem">Sensorial</span>
+            <h4>🌡️ Regulação</h4>
+            <p style="font-size:0.9rem">Controle sensorial e emocional. Essencial para lidar com ambientes caóticos e situações de sobrecarga.</p>
+          </div>
+          <div class="card">
+            <span class="badge badge-purple" style="margin-bottom:0.75rem">Cognitivo</span>
+            <h4>🎨 Criatividade</h4>
+            <p style="font-size:0.9rem">Pensamento não-linear e capacidade de encontrar soluções inesperadas. Rola ao improvisar e criar fora do padrão.</p>
+          </div>
+          <div class="card">
+            <span class="badge badge-green" style="margin-bottom:0.75rem">Pessoal</span>
+            <h4>🔩 Persistência</h4>
+            <p style="font-size:0.9rem">Determinação e capacidade de continuar apesar de obstáculos. Essencial para projetos longos e desafios repetitivos.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CTA ==================== -->
+    <section class="section" style="background:var(--bg-secondary)" aria-labelledby="cta-heading">
+      <div class="container" style="text-align:center">
+        <h2 id="cta-heading" style="margin-bottom:1rem">Pronto para começar?</h2>
+        <p style="max-width:500px;margin:0 auto 2rem">Crie sua ficha agora mesmo, exporte em PDF e leve para a mesa de jogo — físico ou virtual.</p>
+        <div class="hero-buttons">
+          <a href="ficha.html" class="btn btn-primary btn-lg">✏️ Criar Ficha</a>
+          <a href="regras.html" class="btn btn-outline btn-lg">📖 Manual de Regras</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer role="contentinfo">
+    <div class="container">
+      <p style="font-size:1rem;font-weight:700;margin-bottom:0.5rem">
+        <span class="gradient-text">AUTISTA: O LAUDO</span>
+      </p>
+      <p>RPG de Storytelling Neurodivergente Brasileiro</p>
+      <p>
+        <a href="https://github.com/bmsrk/autistaolaudo" target="_blank" rel="noopener">GitHub</a>
+        &nbsp;·&nbsp;
+        <a href="regras.html">Regras</a>
+        &nbsp;·&nbsp;
+        <a href="ficha.html">Ficha</a>
+      </p>
+      <p style="margin-top:1rem">Licença <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a> — Feito com 🧩 no Brasil</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
