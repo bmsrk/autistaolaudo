@@ -19,6 +19,7 @@
   const MAX_ATTR = 4;
   const MIN_ATTR = 1;
   const OVERLOAD_MAX = 10;
+  const MAX_INTERESTS = 8;
 
   let state = {
     nome: "",
@@ -37,21 +38,68 @@
   let autoSaveTimer = null;
 
   /* ---- Inicializar pontos ---- */
-  // Começa com cada atributo em 1 (total 6), restam 6 para distribuir
   function pontosUsados() {
     return Object.values(state.atributos).reduce((s, v) => s + v, 0);
   }
-  function pontosRestantes() {
-    return TOTAL_POINTS - pontosUsados() + ATTRS.length; // base is ATTRS.length × 1
-    // Actually: total - used where used starts at ATTRS.length
+  function freePointsRemaining() {
+    return TOTAL_POINTS - pontosUsados();
   }
 
-  // Simplified: total pool is TOTAL_POINTS, each starts at 1
-  // So freely assignable = TOTAL_POINTS - ATTRS.length = 12 - 6 = 6
-  // We'll track total used points including base
-  function freePointsRemaining() {
-    const used = pontosUsados(); // sum of all attr values
-    return TOTAL_POINTS - used; // free points still to assign (attrs start at 1 = 6 base)
+  function filledInterestsCount() {
+    return state.interesses.filter((interest) => String(interest || "").trim()).length;
+  }
+
+  function pointWord(count, singular, plural) {
+    return count === 1 ? singular : plural;
+  }
+
+  function clamp(value, min, max) {
+    return Math.min(max, Math.max(min, value));
+  }
+
+  function normalizeAttributes(attrs) {
+    const normalized = Object.fromEntries(
+      ATTRS.map((attr) => {
+        const rawValue = Number(attrs?.[attr.id]);
+        const safeValue = Number.isFinite(rawValue) ? rawValue : MIN_ATTR;
+        return [attr.id, clamp(safeValue, MIN_ATTR, MAX_ATTR)];
+      })
+    );
+
+    let total = Object.values(normalized).reduce((sum, value) => sum + value, 0);
+    if (total <= TOTAL_POINTS) return normalized;
+
+    [...ATTRS]
+      .sort((a, b) => normalized[b.id] - normalized[a.id])
+      .forEach((attr) => {
+        while (total > TOTAL_POINTS && normalized[attr.id] > MIN_ATTR) {
+          normalized[attr.id] -= 1;
+          total -= 1;
+        }
+      });
+
+    return normalized;
+  }
+
+  function normalizeState(saved) {
+    const interesses = Array.isArray(saved?.interesses)
+      ? saved.interesses.slice(0, MAX_INTERESTS).map((interest) => String(interest ?? ""))
+      : [""];
+
+    return {
+      nome: typeof saved?.nome === "string" ? saved.nome : "",
+      idade: typeof saved?.idade === "string" ? saved.idade : "",
+      suporte: ["1", "2", "3"].includes(saved?.suporte) ? saved.suporte : "",
+      laudo: typeof saved?.laudo === "string" ? saved.laudo : "",
+      atributos: normalizeAttributes(saved?.atributos),
+      interesses: interesses.length ? interesses : [""],
+      forcas: typeof saved?.forcas === "string" ? saved.forcas : "",
+      fraquezas: typeof saved?.fraquezas === "string" ? saved.fraquezas : "",
+      habilidades: typeof saved?.habilidades === "string" ? saved.habilidades : "",
+      sobrecarga: clamp(Number(saved?.sobrecarga) || 0, 0, OVERLOAD_MAX),
+      inventario: typeof saved?.inventario === "string" ? saved.inventario : "",
+      historia: typeof saved?.historia === "string" ? saved.historia : "",
+    };
   }
 
   /* ---- DOM References ---- */
@@ -79,7 +127,7 @@
       nameEl.className = "attr-name";
       nameEl.textContent = attr.name;
       const descEl = document.createElement("div");
-      descEl.style.cssText = "font-size:0.75rem;color:var(--text-muted)";
+      descEl.className = "attr-desc";
       descEl.textContent = attr.desc;
       headerInner.appendChild(nameEl);
       headerInner.appendChild(descEl);
@@ -90,6 +138,7 @@
       controls.className = "attr-controls";
 
       const minusBtn = document.createElement("button");
+      minusBtn.type = "button";
       minusBtn.className = "attr-btn";
       minusBtn.dataset.attr = attr.id;
       minusBtn.dataset.delta = "-1";
@@ -103,6 +152,7 @@
       valSpan.textContent = String(val);
 
       const plusBtn = document.createElement("button");
+      plusBtn.type = "button";
       plusBtn.className = "attr-btn";
       plusBtn.dataset.attr = attr.id;
       plusBtn.dataset.delta = "1";
@@ -116,6 +166,7 @@
 
       card.appendChild(header);
       card.appendChild(controls);
+      card.classList.toggle("attr-card-active", val > MIN_ATTR);
       container.appendChild(card);
     });
   }
@@ -135,6 +186,46 @@
       if (minusBtn) minusBtn.disabled = val <= MIN_ATTR;
       if (plusBtn)  plusBtn.disabled  = val >= MAX_ATTR || rem <= 0;
     });
+  }
+
+  function updateBuilderOverview() {
+    const rem = freePointsRemaining();
+    const hasName = state.nome.trim().length > 0;
+    const hasSupport = Boolean(state.suporte);
+    const interestsCount = filledInterestsCount();
+
+    const nameEl = $("builder-name");
+    const pointsEl = $("builder-points");
+    const interestsEl = $("builder-interests");
+    const statusEl = $("builder-status");
+
+    if (nameEl) nameEl.textContent = hasName ? state.nome.trim() : "Sem nome";
+
+    if (pointsEl) {
+      pointsEl.textContent = `${rem} ${pointWord(rem, "livre", "livres")}`;
+      pointsEl.dataset.state = rem === 0 ? "ready" : "editing";
+    }
+
+    if (interestsEl) interestsEl.textContent = `${interestsCount}/${MAX_INTERESTS}`;
+
+    if (statusEl) {
+      let statusText = "Em edição";
+      let statusState = "editing";
+
+      if (!hasName) {
+        statusText = "Defina o nome";
+      } else if (rem > 0) {
+        statusText = `Distribua ${rem} ${pointWord(rem, "ponto", "pontos")}`;
+      } else if (!hasSupport) {
+        statusText = "Escolha o suporte";
+      } else {
+        statusText = "Pronto para exportar";
+        statusState = "ready";
+      }
+
+      statusEl.textContent = statusText;
+      statusEl.dataset.state = statusState;
+    }
   }
 
   function buildInterestFields() {
@@ -177,6 +268,7 @@
     container.addEventListener("click", (e) => {
       const btn = e.target.closest(".attr-btn");
       if (!btn) return;
+      e.preventDefault();
       const attrId = btn.dataset.attr;
       const delta  = parseInt(btn.dataset.delta, 10);
       const curr   = state.atributos[attrId];
@@ -189,6 +281,8 @@
 
       const valEl = $(`attr-val-${attrId}`);
       if (valEl) valEl.textContent = next;
+      const card = btn.closest(".attr-card");
+      if (card) card.classList.toggle("attr-card-active", next > MIN_ATTR);
       updatePointsDisplay();
       updatePreview();
       scheduleAutoSave();
@@ -300,12 +394,13 @@
     const addInterestBtn = $("add-interest");
     if (addInterestBtn) {
       addInterestBtn.addEventListener("click", () => {
-        if (state.interesses.length >= 8) {
+        if (state.interesses.length >= MAX_INTERESTS) {
           showToast("Máximo de 8 interesses especiais!");
           return;
         }
         state.interesses.push("");
         buildInterestFields();
+        updatePreview();
         scheduleAutoSave();
       });
     }
@@ -340,6 +435,7 @@
   function updatePreview() {
     const preview = $("sheet-preview");
     if (!preview) return;
+    updateBuilderOverview();
 
     // Clear and rebuild using DOM methods — no user data flows through innerHTML
     preview.innerHTML = "";
@@ -709,7 +805,7 @@
     if (!raw) return false;
     try {
       const saved = JSON.parse(raw);
-      Object.assign(state, saved);
+      state = normalizeState(saved);
       return true;
     } catch {
       return false;
