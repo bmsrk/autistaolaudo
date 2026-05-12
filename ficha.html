@@ -6,8 +6,10 @@
   <title>Criar Ficha — AUTISTA: O LAUDO</title>
   <meta name="description" content="Criador de ficha interativo do RPG AUTISTA: O LAUDO. Preencha sua ficha de personagem e exporte em PDF." />
   <link rel="stylesheet" href="assets/css/style.css" />
-  <!-- jsPDF via CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+  <!-- jsPDF via CDN with Subresource Integrity -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"
+          integrity="sha384-JcnsjUPPylna1s1fvi1u12X5qjY5OL56iySh75FdtrwhO/SWXgMjoVqcKyIIWOLk"
+          crossorigin="anonymous" defer></script>
 </head>
 <body>
   <div id="scroll-progress" role="progressbar" aria-label="Progresso de rolagem"></div>
@@ -112,7 +114,7 @@
           <section aria-labelledby="sec-atributos">
             <h2 id="sec-atributos" style="margin-bottom:0.5rem">📊 Atributos</h2>
             <p style="font-size:0.9rem;margin-bottom:1rem;color:var(--text-muted)">
-              Distribua <strong style="color:var(--text-primary)">12 pontos</strong> entre os atributos. Mín. 0 | Máx. 4 por atributo.
+              Distribua <strong style="color:var(--text-primary)">12 pontos</strong> entre os atributos. Mín. 1 | Máx. 4 por atributo.
             </p>
 
             <div class="points-counter" aria-live="polite" aria-atomic="true">

@@ -17,7 +17,7 @@
 
   const TOTAL_POINTS = 12;
   const MAX_ATTR = 4;
-  const MIN_ATTR = 0;
+  const MIN_ATTR = 1;
   const OVERLOAD_MAX = 10;
 
   let state = {
@@ -66,20 +66,55 @@
 
     ATTRS.forEach((attr) => {
       const val = state.atributos[attr.id];
+
       const card = document.createElement("div");
       card.className = "attr-card";
-      card.innerHTML = `
-        <div class="attr-header">
-          <div>
-            <div class="attr-name">${attr.name}</div>
-            <div style="font-size:0.75rem;color:var(--text-muted)">${attr.desc}</div>
-          </div>
-        </div>
-        <div class="attr-controls">
-          <button class="attr-btn" data-attr="${attr.id}" data-delta="-1" aria-label="Diminuir ${attr.name}" ${val <= MIN_ATTR ? "disabled" : ""}>−</button>
-          <span class="attr-value" id="attr-val-${attr.id}">${val}</span>
-          <button class="attr-btn" data-attr="${attr.id}" data-delta="1" aria-label="Aumentar ${attr.name}" ${val >= MAX_ATTR || freePointsRemaining() <= 0 ? "disabled" : ""}>+</button>
-        </div>`;
+
+      // Header (uses textContent so attr.name / attr.desc are never parsed as HTML)
+      const header = document.createElement("div");
+      header.className = "attr-header";
+      const headerInner = document.createElement("div");
+      const nameEl = document.createElement("div");
+      nameEl.className = "attr-name";
+      nameEl.textContent = attr.name;
+      const descEl = document.createElement("div");
+      descEl.style.cssText = "font-size:0.75rem;color:var(--text-muted)";
+      descEl.textContent = attr.desc;
+      headerInner.appendChild(nameEl);
+      headerInner.appendChild(descEl);
+      header.appendChild(headerInner);
+
+      // Controls
+      const controls = document.createElement("div");
+      controls.className = "attr-controls";
+
+      const minusBtn = document.createElement("button");
+      minusBtn.className = "attr-btn";
+      minusBtn.dataset.attr = attr.id;
+      minusBtn.dataset.delta = "-1";
+      minusBtn.setAttribute("aria-label", "Diminuir " + attr.name);
+      minusBtn.textContent = "−";
+      minusBtn.disabled = val <= MIN_ATTR;
+
+      const valSpan = document.createElement("span");
+      valSpan.className = "attr-value";
+      valSpan.id = "attr-val-" + attr.id;
+      valSpan.textContent = String(val);
+
+      const plusBtn = document.createElement("button");
+      plusBtn.className = "attr-btn";
+      plusBtn.dataset.attr = attr.id;
+      plusBtn.dataset.delta = "1";
+      plusBtn.setAttribute("aria-label", "Aumentar " + attr.name);
+      plusBtn.textContent = "+";
+      plusBtn.disabled = val >= MAX_ATTR || freePointsRemaining() <= 0;
+
+      controls.appendChild(minusBtn);
+      controls.appendChild(valSpan);
+      controls.appendChild(plusBtn);
+
+      card.appendChild(header);
+      card.appendChild(controls);
       container.appendChild(card);
     });
   }
@@ -109,14 +144,27 @@
     state.interesses.forEach((val, idx) => {
       const row = document.createElement("div");
       row.className = "interest-item";
-      row.innerHTML = `
-        <input type="text" class="form-control interest-input"
-               placeholder="Ex: Astronomia, Trens, Minecraft…"
-               value="${escHtml(val)}"
-               data-idx="${idx}"
-               aria-label="Interesse especial ${idx + 1}" />
-        ${state.interesses.length > 1 ? `<button class="remove-btn remove-interest" data-idx="${idx}" aria-label="Remover interesse">✕</button>` : ""}
-      `;
+
+      const input = document.createElement("input");
+      input.type = "text";
+      input.className = "form-control interest-input";
+      input.placeholder = "Ex: Astronomia, Trens, Minecraft…";
+      input.value = val; // Safe: input.value sets the value property, not HTML
+      input.dataset.idx = String(idx);
+      input.setAttribute("aria-label", "Interesse especial " + (idx + 1));
+
+      row.appendChild(input);
+
+      if (state.interesses.length > 1) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "remove-btn remove-interest";
+        btn.dataset.idx = String(idx);
+        btn.setAttribute("aria-label", "Remover interesse");
+        btn.textContent = "✕";
+        row.appendChild(btn);
+      }
+
       container.appendChild(row);
     });
   }
@@ -255,88 +303,109 @@
     }
   }
 
-  /* ---- Live Preview ---- */
-  function escHtml(str) {
-    return String(str)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;");
-  }
-
   function suporteLabel(s) {
     const map = { "1": "Nível 1 — Precisa de algum apoio", "2": "Nível 2 — Precisa de apoio substancial", "3": "Nível 3 — Precisa de apoio muito substancial" };
     return map[s] || "—";
+  }
+
+  /* Create element with optional class and optional text content */
+  function el(tag, cls, textContent) {
+    const e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (textContent !== undefined) e.textContent = textContent;
+    return e;
+  }
+
+  /* Create a labelled field block for the preview */
+  function previewField(label, value, extraStyle) {
+    const wrap = el("div", "sheet-field");
+    if (extraStyle) wrap.setAttribute("style", extraStyle);
+    const lbl = el("div", "sheet-field-label", label);
+    const val = el("div", "sheet-field-value", value || "—");
+    if (extraStyle && extraStyle.includes("pre-line")) val.style.whiteSpace = "pre-line";
+    if (extraStyle && extraStyle.includes("0.78rem")) val.style.fontSize = "0.78rem";
+    wrap.appendChild(lbl);
+    wrap.appendChild(val);
+    return wrap;
   }
 
   function updatePreview() {
     const preview = $("sheet-preview");
     if (!preview) return;
 
-    const nome = state.nome || "Sem nome";
+    // Clear and rebuild using DOM methods — no user data flows through innerHTML
+    preview.innerHTML = "";
+
+    // Header (all static text)
+    const header = el("div", "sheet-header");
+    header.appendChild(el("div", "sheet-title", "⬡ AUTISTA: O LAUDO"));
+    header.appendChild(el("div", "sheet-subtitle", "Ficha de Personagem"));
+    preview.appendChild(header);
+
+    // Nome + Idade row
+    const row1 = el("div", "sheet-row");
+    row1.appendChild(previewField("Nome", state.nome || "Sem nome"));
+    const idadeWrap = previewField("Idade", state.idade || "—", "max-width:80px");
+    row1.appendChild(idadeWrap);
+    preview.appendChild(row1);
+
+    // Suporte
+    const row2 = el("div", "sheet-row");
+    const suporteWrap = previewField("Nível de Suporte", suporteLabel(state.suporte), "font-size:0.78rem");
+    row2.appendChild(suporteWrap);
+    preview.appendChild(row2);
+
+    // Laudo
+    const row3 = el("div", "sheet-row");
+    row3.appendChild(previewField("Laudo", state.laudo || "—", "font-size:0.78rem"));
+    preview.appendChild(row3);
+
+    // Atributos grid
+    const attrsGrid = el("div", "sheet-attrs");
+    ATTRS.forEach((a) => {
+      const box = el("div", "sheet-attr-box");
+      box.appendChild(el("div", "sheet-attr-val", String(state.atributos[a.id])));
+      box.appendChild(el("div", "sheet-attr-lbl", a.name));
+      attrsGrid.appendChild(box);
+    });
+    preview.appendChild(attrsGrid);
+
+    // Divider
+    const hr = document.createElement("hr");
+    hr.style.cssText = "border-color:var(--border-color);margin:0.75rem 0";
+    preview.appendChild(hr);
+
+    // Interests
     const interesses = state.interesses.filter(Boolean).join(", ") || "—";
+    preview.appendChild(previewField("Interesses Especiais", interesses, "margin-bottom:0.4rem;font-size:0.78rem"));
 
-    const attrsHtml = ATTRS.map((a) => `
-      <div class="sheet-attr-box">
-        <div class="sheet-attr-val">${state.atributos[a.id]}</div>
-        <div class="sheet-attr-lbl">${a.name}</div>
-      </div>`).join("");
+    // Forças
+    const forcasField = previewField("Forças", state.forcas || "—", "margin-bottom:0.4rem;font-size:0.78rem");
+    forcasField.querySelector(".sheet-field-value").style.whiteSpace = "pre-line";
+    preview.appendChild(forcasField);
 
-    const olBoxes = Array.from({ length: OVERLOAD_MAX }, (_, i) => {
-      const filled = state.sobrecarga >= i + 1;
-      return `<div class="ol-box${filled ? " filled" : ""}" title="Nível ${i+1}"></div>`;
-    }).join("");
+    // Fraquezas
+    const fraqField = previewField("Fraquezas", state.fraquezas || "—", "margin-bottom:0.4rem;font-size:0.78rem");
+    fraqField.querySelector(".sheet-field-value").style.whiteSpace = "pre-line";
+    preview.appendChild(fraqField);
 
-    preview.innerHTML = `
-      <div class="sheet-header">
-        <div class="sheet-title">⬡ AUTISTA: O LAUDO</div>
-        <div class="sheet-subtitle">Ficha de Personagem</div>
-      </div>
-      <div class="sheet-row">
-        <div class="sheet-field">
-          <div class="sheet-field-label">Nome</div>
-          <div class="sheet-field-value">${escHtml(nome)}</div>
-        </div>
-        <div class="sheet-field" style="max-width:80px">
-          <div class="sheet-field-label">Idade</div>
-          <div class="sheet-field-value">${escHtml(state.idade || "—")}</div>
-        </div>
-      </div>
-      <div class="sheet-row">
-        <div class="sheet-field">
-          <div class="sheet-field-label">Nível de Suporte</div>
-          <div class="sheet-field-value" style="font-size:0.78rem">${escHtml(suporteLabel(state.suporte))}</div>
-        </div>
-      </div>
-      <div class="sheet-row">
-        <div class="sheet-field">
-          <div class="sheet-field-label">Laudo</div>
-          <div class="sheet-field-value" style="font-size:0.78rem">${escHtml(state.laudo || "—")}</div>
-        </div>
-      </div>
-      <div class="sheet-attrs">${attrsHtml}</div>
-      <hr style="border-color:var(--border-color);margin:0.75rem 0">
-      <div class="sheet-field" style="margin-bottom:0.4rem">
-        <div class="sheet-field-label">Interesses Especiais</div>
-        <div class="sheet-field-value" style="font-size:0.78rem">${escHtml(interesses)}</div>
-      </div>
-      <div class="sheet-field" style="margin-bottom:0.4rem">
-        <div class="sheet-field-label">Forças</div>
-        <div class="sheet-field-value" style="font-size:0.78rem;white-space:pre-line">${escHtml(state.forcas || "—")}</div>
-      </div>
-      <div class="sheet-field" style="margin-bottom:0.4rem">
-        <div class="sheet-field-label">Fraquezas</div>
-        <div class="sheet-field-value" style="font-size:0.78rem;white-space:pre-line">${escHtml(state.fraquezas || "—")}</div>
-      </div>
-      <div class="sheet-field" style="margin-bottom:0.4rem">
-        <div class="sheet-field-label">Habilidades Especiais</div>
-        <div class="sheet-field-value" style="font-size:0.78rem;white-space:pre-line">${escHtml(state.habilidades || "—")}</div>
-      </div>
-      <div class="sheet-field">
-        <div class="sheet-field-label">Sobrecarga Sensorial (${state.sobrecarga}/${OVERLOAD_MAX})</div>
-        <div class="sheet-overload-preview">${olBoxes}</div>
-      </div>
-    `;
+    // Habilidades
+    const habField = previewField("Habilidades Especiais", state.habilidades || "—", "margin-bottom:0.4rem;font-size:0.78rem");
+    habField.querySelector(".sheet-field-value").style.whiteSpace = "pre-line";
+    preview.appendChild(habField);
+
+    // Overload bar
+    const olWrap = el("div", "sheet-field");
+    const olLabel = el("div", "sheet-field-label", "Sobrecarga Sensorial (" + state.sobrecarga + "/" + OVERLOAD_MAX + ")");
+    const olBar = el("div", "sheet-overload-preview");
+    for (let i = 1; i <= OVERLOAD_MAX; i++) {
+      const box = el("div", state.sobrecarga >= i ? "ol-box filled" : "ol-box");
+      box.setAttribute("title", "Nível " + i);
+      olBar.appendChild(box);
+    }
+    olWrap.appendChild(olLabel);
+    olWrap.appendChild(olBar);
+    preview.appendChild(olWrap);
   }
 
   /* ---- PDF Generation ---- */
