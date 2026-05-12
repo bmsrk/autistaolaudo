@@ -36,7 +36,7 @@
   </nav>
 
   <!-- ==================== PAGE HEADER ==================== -->
-  <header style="padding:2.5rem 0 1.75rem;text-align:center;background:var(--bg-secondary);border-bottom:1px solid var(--border-color)">
+  <header class="ficha-page-header">
     <div class="container">
       <span class="badge badge-green" style="margin-bottom:0.75rem">✏️ Criador de Ficha</span>
       <h1><span class="gradient-text">Criar Personagem</span></h1>
@@ -49,7 +49,7 @@
     <div class="container">
 
       <!-- Action bar -->
-      <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:2rem;justify-content:flex-end" role="toolbar" aria-label="Ações da ficha">
+      <div class="ficha-actions ficha-actions-top" role="toolbar" aria-label="Ações da ficha">
         <button class="btn btn-outline" id="btn-save" aria-label="Salvar ficha no navegador">
           💾 Salvar
         </button>
@@ -70,7 +70,7 @@
           <section aria-labelledby="sec-identidade">
             <h2 id="sec-identidade" style="margin-bottom:1.25rem">🪪 Identidade</h2>
 
-            <div style="display:grid;grid-template-columns:1fr 120px;gap:1rem">
+            <div class="ficha-grid-identity">
               <div class="form-group">
                 <label class="form-label" for="nome">Nome do Personagem <span style="color:#ef4444" aria-hidden="true">*</span></label>
                 <input type="text" id="nome" class="form-control" placeholder="Como seu personagem é chamado?" autocomplete="off" aria-required="true" />
@@ -149,7 +149,7 @@
           <section aria-labelledby="sec-forcas">
             <h2 id="sec-forcas" style="margin-bottom:1.25rem">⚡ Forças &amp; Fraquezas</h2>
 
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+             <div class="ficha-grid-duo">
               <div class="form-group">
                 <label class="form-label" for="forcas">Forças</label>
                 <textarea id="forcas" class="form-control" rows="4" placeholder="Ex: Memória fotográfica, atenção a detalhes, empatia profunda com animais…"></textarea>
@@ -185,12 +185,12 @@
               <!-- Populated by ficha.js -->
             </div>
 
-            <div style="display:flex;gap:1.5rem;margin-top:0.75rem;font-size:0.82rem;flex-wrap:wrap">
-              <span style="color:var(--accent-green)">▪ 0–3: Normal</span>
-              <span style="color:var(--accent-yellow)">▪ 4–6: Moderada (−1 dado social)</span>
-              <span style="color:#f97316">▪ 7–8: Alta (−1 dado tudo)</span>
-              <span style="color:#ef4444">▪ 9–10: Meltdown/Shutdown</span>
-            </div>
+             <div class="overload-legend">
+               <span class="level-normal">▪ 0–3: Normal</span>
+               <span class="level-moderate">▪ 4–6: Moderada (−1 dado social)</span>
+               <span class="level-high">▪ 7–8: Alta (−1 dado tudo)</span>
+               <span class="level-critical">▪ 9–10: Meltdown/Shutdown</span>
+             </div>
           </section>
 
           <hr class="divider" />
@@ -218,7 +218,7 @@
           <hr class="divider" />
 
           <!-- Action buttons (bottom) -->
-          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center">
+          <div class="ficha-actions ficha-actions-bottom">
             <button type="button" class="btn btn-outline" id="btn-save-2" aria-label="Salvar ficha no navegador" onclick="document.getElementById('btn-save').click()">
               💾 Salvar Ficha
             </button>
@@ -231,21 +231,21 @@
 
         <!-- ============ PREVIEW ============ -->
         <aside aria-label="Prévia da ficha">
-          <div style="margin-bottom:1rem;text-align:center">
+          <div class="preview-kicker">
             <span class="badge badge-blue">👁️ Prévia ao Vivo</span>
           </div>
           <div id="sheet-preview" class="sheet-preview" aria-live="polite" aria-atomic="true" aria-label="Prévia da ficha de personagem">
             <!-- Populated by ficha.js -->
-            <div style="text-align:center;padding:2rem;color:var(--text-muted)">
-              <div style="font-size:3rem;margin-bottom:0.75rem" aria-hidden="true">✏️</div>
+            <div class="preview-empty">
+              <div class="preview-empty-icon" aria-hidden="true">✏️</div>
               <p>Preencha os campos ao lado para ver a prévia da sua ficha aqui.</p>
             </div>
           </div>
 
           <!-- Tips -->
-          <div class="card" style="margin-top:1rem;font-size:0.85rem">
-            <h4 style="margin-bottom:0.5rem;font-size:0.9rem">💡 Dicas</h4>
-            <ul style="padding-left:1.2rem;color:var(--text-muted);font-size:0.82rem">
+          <div class="card ficha-tips">
+            <h4>💡 Dicas</h4>
+            <ul>
               <li>A ficha é salva automaticamente no seu navegador</li>
               <li>O PDF é gerado offline — sem enviar dados para servidores</li>
               <li>Você pode editar o PDF pelo Adobe Acrobat depois</li>

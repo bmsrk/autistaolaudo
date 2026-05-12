@@ -42,28 +42,6 @@ Site oficial do RPG AUTISTA: O LAUDO — um jogo de narrativa colaborativa criad
 
 ---
 
-## 🚀 Como Rodar Localmente
-
-Não precisa de servidor! Basta abrir os arquivos HTML diretamente no navegador:
-
-```bash
-# Clone o repositório
-git clone https://github.com/bmsrk/autistaolaudo.git
-cd autistaolaudo
-
-# Abra no navegador (exemplo no Linux/Mac)
-open index.html
-
-# Ou use um servidor local simples (recomendado para evitar erros de CORS)
-npx serve .
-# ou
-python3 -m http.server 8080
-```
-
-Acesse: `http://localhost:8080` (ou `http://localhost:3000` com `npx serve`)
-
----
-
 ## 🌐 Deploy no GitHub Pages
 
 ### Método 1 — Interface Web (mais fácil)

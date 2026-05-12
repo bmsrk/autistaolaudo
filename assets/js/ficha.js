@@ -34,6 +34,7 @@
     inventario: "",
     historia: "",
   };
+  let autoSaveTimer = null;
 
   /* ---- Inicializar pontos ---- */
   // Começa com cada atributo em 1 (total 6), restam 6 para distribuir
@@ -190,6 +191,7 @@
       if (valEl) valEl.textContent = next;
       updatePointsDisplay();
       updatePreview();
+      scheduleAutoSave();
     });
   }
 
@@ -234,6 +236,7 @@
           cb.checked = state.sobrecarga >= parseInt(cb.value, 10);
         });
         updatePreview();
+        scheduleAutoSave();
       }
     });
   }
@@ -257,6 +260,7 @@
       el.addEventListener("input", () => {
         state[key] = el.value;
         updatePreview();
+        scheduleAutoSave();
       });
     });
 
@@ -265,6 +269,7 @@
       radio.addEventListener("change", () => {
         state.suporte = radio.value;
         updatePreview();
+        scheduleAutoSave();
       });
     });
 
@@ -276,6 +281,7 @@
           const idx = parseInt(e.target.dataset.idx, 10);
           state.interesses[idx] = e.target.value;
           updatePreview();
+          scheduleAutoSave();
         }
       });
 
@@ -286,6 +292,7 @@
         state.interesses.splice(idx, 1);
         buildInterestFields();
         updatePreview();
+        scheduleAutoSave();
       });
     }
 
@@ -299,6 +306,7 @@
         }
         state.interesses.push("");
         buildInterestFields();
+        scheduleAutoSave();
       });
     }
   }
@@ -682,6 +690,14 @@
 
   /* ---- Save / Load from localStorage ---- */
   const SAVE_KEY = "autista-ficha-v1";
+  const AUTO_SAVE_DEBOUNCE_MS = 450;
+
+  function scheduleAutoSave() {
+    clearTimeout(autoSaveTimer);
+    autoSaveTimer = setTimeout(() => {
+      localStorage.setItem(SAVE_KEY, JSON.stringify(state));
+    }, AUTO_SAVE_DEBOUNCE_MS);
+  }
 
   function saveState() {
     localStorage.setItem(SAVE_KEY, JSON.stringify(state));
