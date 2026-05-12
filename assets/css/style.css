@@ -400,6 +400,14 @@ select.form-control {
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
   padding: 1rem;
+  transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+}
+
+.attr-card:hover,
+.attr-card-active {
+  border-color: rgba(56, 189, 248, 0.6);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.18);
+  transform: translateY(-2px);
 }
 
 .attr-header {
@@ -415,6 +423,11 @@ select.form-control {
   color: var(--text-primary);
 }
 
+.attr-desc {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
 .attr-value {
   font-size: 1.4rem;
   font-weight: 800;
@@ -426,6 +439,7 @@ select.form-control {
 .attr-controls {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 0.5rem;
 }
 
@@ -945,6 +959,64 @@ tr:hover td {
   margin-bottom: 1.5rem;
 }
 
+.builder-overview {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  background:
+    radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 45%),
+    radial-gradient(circle at bottom right, rgba(74, 222, 128, 0.12), transparent 40%),
+    var(--bg-card);
+}
+
+.builder-overview-copy h2 {
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  margin: 0.75rem 0 0.5rem;
+}
+
+.builder-overview-copy p {
+  margin-bottom: 0;
+  max-width: 52ch;
+}
+
+.builder-overview-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.builder-stat {
+  padding: 0.9rem 1rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+}
+
+.builder-stat-label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.builder-stat-value {
+  display: block;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.builder-stat-value[data-state="ready"] {
+  color: var(--accent-green);
+}
+
+.builder-stat-value[data-state="editing"] {
+  color: var(--accent-yellow);
+}
+
 #ficha-form {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -1064,6 +1136,10 @@ tr:hover td {
     grid-template-columns: 1fr;
   }
 
+  .builder-overview {
+    grid-template-columns: 1fr;
+  }
+
   .sheet-preview {
     position: static;
   }
@@ -1123,6 +1199,10 @@ tr:hover td {
   }
 
   .ficha-grid-identity {
+    grid-template-columns: 1fr;
+  }
+
+  .builder-overview-stats {
     grid-template-columns: 1fr;
   }
 }
